@@ -1,17 +1,17 @@
 
 import React, { useState } from "react";
 import "./App.css";
-// import About from "./Component/About";
+import About from "./Component/About";
 import Nabvar from "./Component/Nabvar";
 import TestForm from "./Component/TestForm";
 import Alert from "./Component/Alert";
 
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route,
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
 
-// } from "react-router-dom";
+} from "react-router-dom";
 
 function App() {
 
@@ -28,7 +28,20 @@ function App() {
     }, 1000);
   }
 
-  const toggleMode=()=>{
+  const removeBodyClass=()=>{
+    document.body.classList.remove('bg-light');
+    document.body.classList.remove('bg-danger');
+    document.body.classList.remove('bg-warning');
+    document.body.classList.remove('bg-dark');
+    document.body.classList.remove('bg-success');
+    document.body.classList.remove('bg-primary');
+    
+  }
+
+  const toggleMode=(cls)=>{
+    console.log(cls);
+    removeBodyClass();
+    document.body.classList.add('bg-'+cls);
     if(mode==='light'){
       setMode('dark');
       document.body.style.backgroundColor='#042743';
@@ -56,28 +69,19 @@ function App() {
   
     return (
 
-      <>
-
-        <Nabvar title="TestUtils" About="About TestUtils" mode={mode} toggleMode={toggleMode} />
-        <Alert alert={alert} />
-
-      <TestForm showAlert={showAlert} heading="Enter the test to analyze" mode={mode} />
-
-        
-        
-        </>
+     
 
     
-      // <Router>
-      //   <Nabvar title="TestUtils" About="About TestUtils" mode={mode} toggleMode={toggleMode} />
-      //   <Alert alert={alert} />
-      //   <div className="container my-3">
-      //     <Routes>
-      //       <Route path="/about" element={<About />} />
-      //       <Route path="/" element={<TestForm showAlert={showAlert} heading="Enter the test to analyze" mode={mode} />} />
-      //     </Routes>
-      //   </div>
-      // </Router>
+      <Router>
+        <Nabvar title="TestUtils" About="About TestUtils" mode={mode} toggleMode={toggleMode} />
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Routes>
+            <Route path="/about" element={<About mode={mode} />} />
+            <Route path="/" element={<TestForm showAlert={showAlert} heading="TextUtils - Word Counter, Character Counter, Remove Extra Spaces " mode={mode} />} />
+          </Routes>
+        </div>
+      </Router>
     
 
   );
